@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package user;
+option go_package = "user/userpb"; 
+
+service UserService {
+  rpc GreetUser (GreetRequest) returns (GreetResponse);
+}
+
+message GreetRequest {
+  string name = 1;
+}
+
+message GreetResponse {
+  string message = 1;
+}
