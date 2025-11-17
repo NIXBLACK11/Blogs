@@ -4,6 +4,10 @@ protoc --proto_path=../grpc-protos \
   ../grpc-protos/user.proto
 
 
+
+protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. ../grpc-protos/user.proto
+
+
   bun init
   choose blank
   bun add @grpc/grpc-js @grpc/proto-loader
