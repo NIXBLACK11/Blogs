@@ -14,5 +14,5 @@ client.greetUser(req, (err, response) => {
     console.error(err);
     return;
   }
-  console.log("Response:", response);
+  console.log("Server Response:", response.message);
 });
