@@ -11,3 +11,17 @@ docker run -it --rm \
   getmeili/meilisearch:latest
 
   we will pass the master key here for it x
+
+
+
+create mcp 
+
+mkdir mcp
+cd mcp
+bun init -y
+
+bun add meilisearch
+bun add -d typescript @types/bun
+
+
+bunx --bun shadcn@latest init --preset b1s9IGMLI --template next --pointer
