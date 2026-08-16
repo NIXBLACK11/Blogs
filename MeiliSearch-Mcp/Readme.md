@@ -6,7 +6,7 @@ docker pull getmeili/meilisearch:latest
 RUn meilisearch with docker
 docker run -it --rm \
   -p 7700:7700 \
-  -e MEILI_MASTER_KEY='MASTER_KEY'\
+  -e MEILI_MASTER_KEY='1ef1f8b77db97cf5ac9b55f417980af9dfe1ff7dd6ce310297e54080745e2ba2'\
   -v $(pwd)/meili_data:/meili_data \
   getmeili/meilisearch:latest
 
