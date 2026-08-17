@@ -1,12 +1,37 @@
+import { McpServer } from "@modelcontextprotocol/server"
+import { serveStdio } from "@modelcontextprotocol/server/stdio"
+import { z } from "zod/v4"
+
 import { meilisearch } from "./meilisearch"
 
-const index = meilisearch.index("movies")
-const query = process.argv.slice(2).join(" ").trim()
+const server = new McpServer({
+  name: "movies-search",
+  version: "1.0.0",
+})
 
-if (query) {
-  const results = await index.search(query)
-  console.log(results.hits)
-} else {
-  console.log("Meilisearch movies index is ready.")
-  console.log("Run `bun src/index.ts space` to try a search.")
-}
+server.registerTool(
+  "search_movies",
+  {
+    description:
+      "Search the movie database. Use this to find movies by title, description, genre, director, cast, or other movie information.",
+    inputSchema: z.object({
+      query: z.string().describe("The movie search query"),
+    }),
+  },
+  async ({ query }) => {
+    const results = await meilisearch.index("movies").search(query, {
+      limit: 10,
+    })
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(results.hits),
+        },
+      ],
+    }
+  },
+)
+
+await serveStdio(() => server)
