@@ -1,8 +1,5 @@
-import { join } from "node:path"
-
 import { createGoogle } from "@ai-sdk/google"
 import { createMCPClient } from "@ai-sdk/mcp"
-import { Experimental_StdioMCPTransport } from "@ai-sdk/mcp/mcp-stdio"
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
@@ -20,23 +17,15 @@ const google = createGoogle({
   apiKey: process.env.GEMINI_API_KEY ?? process.env.GOOGLE_GENERATIVE_AI_API_KEY,
 })
 
-function mcpEnv() {
-  return {
-    MEILISEARCH_URL: process.env.MEILISEARCH_URL ?? "",
-    MEILISEARCH_MASTER_KEY: process.env.MEILISEARCH_MASTER_KEY ?? "",
-  }
-}
+const mcpServerUrl = process.env.MCP_SERVER_URL ?? "http://localhost:8787/mcp"
 
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json()
   const mcp = await createMCPClient({
-    transport: new Experimental_StdioMCPTransport({
-      command: "bun",
-      args: ["src/index.ts"],
-      cwd: join(process.cwd(), "../mcp"),
-      env: mcpEnv(),
-      stderr: "pipe",
-    }),
+    transport: {
+      type: "http",
+      url: mcpServerUrl,
+    },
   })
   const tools = await mcp.tools()
 

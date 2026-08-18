@@ -13,3 +13,9 @@ To run:
 ```bash
 bun run start
 ```
+
+The MCP HTTP endpoint runs at:
+
+```text
+http://localhost:8787/mcp
+```
