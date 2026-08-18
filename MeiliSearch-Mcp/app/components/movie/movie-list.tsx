@@ -81,7 +81,12 @@ function MoviePageHeader() {
   )
 }
 
-function MovieCard({ movie }: { movie: MovieRecord }) {
+type MovieCardMovie = Pick<
+  MovieRecord,
+  "id" | "title" | "rating" | "releaseDate" | "runtimeMinutes" | "overview" | "genres"
+>
+
+export function MovieCard({ movie }: { movie: MovieCardMovie }) {
   return (
     <Link href={`/movies/${movie.id}`} className="block">
       <Card className="h-full transition-colors hover:bg-muted/40">

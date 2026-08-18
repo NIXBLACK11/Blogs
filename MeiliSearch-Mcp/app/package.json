@@ -10,6 +10,9 @@
     "meili:seed": "bun scripts/seed-meilisearch.ts"
   },
   "dependencies": {
+    "@ai-sdk/google": "^4.0.44",
+    "@ai-sdk/mcp": "^2.0.32",
+    "@ai-sdk/react": "^4.0.69",
     "@base-ui/react": "^1.7.0",
     "@neondatabase/serverless": "^1.1.0",
     "@tanstack/react-query": "^5.101.4",
